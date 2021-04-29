@@ -1,0 +1,9 @@
+# Explicit default (even though the default currently is bash)
+shell=bash
+
+# Add the directory of the currently checked script to the list of allowed paths to source from
+source-path=SCRIPTDIR
+
+# Enable optional checks
+enable=quote-safe-variables
+enable=check-unassigned-uppercase
