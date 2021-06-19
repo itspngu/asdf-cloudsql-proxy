@@ -24,13 +24,17 @@ get_release_os() {
 get_release_arch() {
   case "$(uname -m)" in
     "x86_64")
-      echo "x64"
+      echo "amd64"
       ;;
     "arm64")
       echo "arm64"
       ;;
+    "i386")
+      echo "386"
+      ;;
     *)
-      "Unknown machine hardware" 1>&2 && exit 1
+      "Unknown machine hardware" 1>&2
+      exit 1
       ;;
   esac
 }
