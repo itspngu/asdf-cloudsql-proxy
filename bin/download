@@ -7,7 +7,8 @@
 . "$(dirname "$0")/lib"
 
 download() {
-  curl -fsSL "$(get_download_url)" -o "$ASDF_DOWNLOAD_PATH/bin/cloudsql-proxy"
+  mkdir -p "$ASDF_DOWNLOAD_PATH/bin" &&
+    curl -fsSL "$(get_download_url)" -o "$ASDF_DOWNLOAD_PATH/bin/cloudsql-proxy"
   exit $?
 }
 
