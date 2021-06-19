@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
 
-# shellcheck source=SCRIPTDIR/lib
-source "$(dirname "$0")/lib"
-
 : "${ASDF_INSTALL_PATH:?"Missing ASDF_INSTALL_PATH"}"
 : "${ASDF_DOWNLOAD_PATH:?"Missing ASDF_DOWNLOAD_PATH"}"
 : "${ASDF_INSTALL_TYPE:?"asdf-cloudsql-proxy supports release installs only"}"
 : "${ASDF_INSTALL_VERSION:?"Missing ASDF_INSTALL_VERSION"}"
 
+# shellcheck source=SCRIPTDIR/lib
+source "$(dirname "$0")/lib"
+
 install() {
-  if [ ! -f "$ASDF_DOWNLOAD_PATH" ]; then
+  if [ ! -d "$ASDF_DOWNLOAD_PATH" ]; then
     # shellcheck source=SCRIPTDIR/download
-    source "$(dirname "$0")/download"
+    source "$(dirname "$0")/download" || (
+      echo "Downloading cloudsql-proxy $ASDF_INSTALL_VERSION failed" 1>&2
+      exit 1
+    )
   fi
 
-  mkdir -p "$ASDF_INSTALL_PATH/bin" &&
-    mv "$ASDF_DOWNLOAD_PATH/cloudsql-proxy" "$ASDF_INSTALL_PATH/bin/cloudsql-proxy" &&
-    chmod +x "$ASDF_INSTALL_PATH/bin/cloudsql-proxy" &&
+  mv "$ASDF_DOWNLOAD_PATH/bin" "$ASDF_INSTALL_PATH" &&
+    chmod -R +x "$ASDF_INSTALL_PATH/bin" &&
     ln -s "$ASDF_INSTALL_PATH/bin/cloudsql-proxy" "$ASDF_INSTALL_PATH/bin/cloud_sql_proxy" &&
     find "$ASDF_DOWNLOAD_PATH" -delete
 
