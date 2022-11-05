@@ -2,6 +2,10 @@
 
 [Google Cloud SQL Auth proxy](https://github.com/GoogleCloudPlatform/cloudsql-proxy) plugin for the [asdf version manager](https://asdf-vm.com).
 
+## ARCHIVAL NOTICE
+
+I stopped using asdf-vm and archived this repository. If you're using this plugin, please consider forking the repository and having it added to the upstream plugin list at https://github.com/asdf-vm/asdf-plugins.
+
 ## Contents
 
 - [Plugin Dependencies](#plugin-dependencies)
